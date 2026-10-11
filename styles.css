@@ -87,6 +87,11 @@ button:focus-visible {
   z-index: 2;
 }
 
+#gameBoard:focus-visible {
+  outline: 2px solid var(--lcd-deep);
+  outline-offset: -4px;
+}
+
 select:focus-visible,
 input:focus-visible,
 summary:focus-visible {

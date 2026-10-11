@@ -736,8 +736,12 @@
   });
   canvas.addEventListener("pointercancel", () => { swipeStart = null; });
 
-  function isFormControl(target) {
-    return Boolean(target?.closest?.("button, input, select, textarea, a, [contenteditable='true']"));
+  function isTextControl(target) {
+    return Boolean(target?.closest?.("input, select, textarea, a, [contenteditable='true']"));
+  }
+
+  function isActionButton(target) {
+    return Boolean(target?.closest?.("button"));
   }
 
   window.addEventListener("keydown", (event) => {
@@ -749,18 +753,18 @@
       arrowleft: "left", a: "left"
     };
     if (keyDirections[key]) {
-      if (isFormControl(event.target)) return;
+      if (isTextControl(event.target)) return;
       event.preventDefault();
       handleDirection(keyDirections[key]);
       return;
     }
-    if ((key === " " || key === "p") && !isFormControl(event.target)) {
+    if ((key === " " || key === "p") && !isTextControl(event.target) && (key !== " " || !isActionButton(event.target))) {
       event.preventDefault();
       if (game.state === "playing") pauseGame();
       else if (game.state === "paused") resumeGame();
       return;
     }
-    if (key === "enter" && !isFormControl(event.target) && (game.state === "ready" || game.state === "gameover" || game.state === "paused")) {
+    if (key === "enter" && !isTextControl(event.target) && !isActionButton(event.target) && (game.state === "ready" || game.state === "gameover" || game.state === "paused")) {
       event.preventDefault();
       activateStart();
     }

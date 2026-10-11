@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "mono-serpent-v2.0.0";
+const CACHE_NAME = "mono-serpent-v2.0.1";
 const SHELL_FILES = [
   "./",
   "./index.html",

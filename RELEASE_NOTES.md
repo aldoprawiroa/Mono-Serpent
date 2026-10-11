@@ -1,25 +1,22 @@
-# Mono Serpent v2.0.0
+# Mono Serpent v2.0.1
 
-Pembaruan besar dengan mode rintangan, fitur offline/PWA, dan pilihan personalisasi—tetap mempertahankan gerak grid serta wrap-around ala Snake II.
+Patch rilis V2 yang memperbaiki keyboard movement setelah fokus tetap berada di tombol Start, sekaligus membuat papan game dapat difokuskan dengan keyboard.
 
-## Baru
+## Termasuk semua fitur v2.0.0
 
-- Mode **Obstacle** dengan arena Random, Twin Gates, Slalom, dan Crossing.
-- Makanan bonus bernilai 30 poin yang muncul terbatas waktu.
-- Daftar lima rekor lokal untuk Endless dan Obstacle; high score v1 dimigrasikan.
-- Pilihan bahasa: English, Indonesia, German, Russian, Japanese, Korean, French, Spanish, Brazilian Portuguese, Simplified Chinese, Arabic, Hindi, Italian, dan Turkish.
-- Empat palet LCD, toggle getaran, ikon aplikasi, instalasi PWA, dan cache offline.
-- README dengan tautan main dan unduh versi terbaru.
+- Mode Endless dan Obstacle dengan arena Random, Twin Gates, Slalom, dan Crossing.
+- Makanan bonus terbatas waktu, level bertahap, wrap-around, dan kemenangan saat papan penuh.
+- Lima rekor lokal per mode serta migrasi high score v1.
+- Antarmuka dalam 14 bahasa: English, Indonesia, German, Russian, Japanese, Korean, French, Spanish, Brazilian Portuguese, Simplified Chinese, Arabic, Hindi, Italian, dan Turkish.
+- Empat palet LCD, suara sintetis, getaran, PWA yang dapat dipasang, serta cache offline.
+- D-pad, swipe, Arrow Keys/WASD, pause/resume, dan pause otomatis saat halaman kehilangan fokus.
 
-## Penyempurnaan
+## Perbaikan
 
-- Pengaturan mode dan arena tampil langsung di LCD dan diperbarui sebelum permainan dimulai.
-- Kontrol keyboard, D-pad, swipe, pause otomatis saat kehilangan fokus, serta target sentuh tetap besar di layar kecil.
-- Workflow membuat arsip instalasi statis bernomor versi dari file `VERSION` dan merilisnya di GitHub Releases.
+- Tombol yang tetap fokus setelah klik tidak lagi menelan input arah keyboard.
+- Papan permainan kini memiliki focus ring LCD yang terlihat saat navigasi keyboard.
 
 ## Memainkan
 
 - **Web:** https://aldoprawiroa.github.io/Mono-Serpent/
-- **Offline:** unduh `Mono-Serpent-v2.0.0.zip`, ekstrak, lalu buka `index.html`.
-
-Gunakan Arrow Keys/WASD atau D-pad untuk bergerak. Space/P menjeda permainan; Enter memulai atau mengulang.
+- **Offline:** unduh `Mono-Serpent-v2.0.1.zip`, ekstrak, lalu buka `index.html`.

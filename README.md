@@ -4,7 +4,7 @@
 
 **Snake saku bergaya LCD monokrom—sederhana, responsif, dan siap dimainkan offline.**
 
-[▶ Mainkan di browser](https://aldoprawiroa.github.io/Mono-Serpent/) · [Unduh Mono Serpent v2.0.0](https://github.com/aldoprawiroa/Mono-Serpent/releases/download/v2.0.0/Mono-Serpent-v2.0.0.zip) · [Lihat semua rilis](https://github.com/aldoprawiroa/Mono-Serpent/releases)
+[▶ Mainkan di browser](https://aldoprawiroa.github.io/Mono-Serpent/) · [Unduh Mono Serpent v2.0.1](https://github.com/aldoprawiroa/Mono-Serpent/releases/download/v2.0.1/Mono-Serpent-v2.0.1.zip) · [Lihat semua rilis](https://github.com/aldoprawiroa/Mono-Serpent/releases)
 
 <br>
 
@@ -14,12 +14,12 @@
 
 Mono Serpent adalah reinterpretasi Snake klasik yang mengambil rasa dari Snake dan Snake II pada ponsel Nokia era 3310. Ular bergerak kotak demi kotak, layar terhubung di keempat sisinya, dan tampilan LCD dibuat sederhana agar permainan tetap menjadi fokus.
 
-Versi 2 menambahkan arena rintangan, makanan bonus, rekor lokal, beberapa warna LCD, getaran, pilihan bahasa, serta dukungan instalasi/offline. Game dibuat dengan HTML, CSS, JavaScript vanilla, dan Canvas—tanpa framework, akun, iklan, backend, atau aset eksternal.
+Versi 2 menambahkan arena rintangan, makanan bonus, rekor lokal, beberapa warna LCD, getaran, pilihan bahasa, serta dukungan instalasi/offline. Patch v2.0.1 juga memastikan tombol Start yang sedang fokus tidak menahan kontrol keyboard. Game dibuat dengan HTML, CSS, JavaScript vanilla, dan Canvas—tanpa framework, akun, iklan, backend, atau aset eksternal.
 
 ## Mainkan
 
 - **Langsung di web:** buka [Mono Serpent](https://aldoprawiroa.github.io/Mono-Serpent/).
-- **Unduh dan main offline:** ambil [Mono-Serpent-v2.0.0.zip](https://github.com/aldoprawiroa/Mono-Serpent/releases/download/v2.0.0/Mono-Serpent-v2.0.0.zip), ekstrak, lalu buka `index.html`.
+- **Unduh dan main offline:** ambil [Mono-Serpent-v2.0.1.zip](https://github.com/aldoprawiroa/Mono-Serpent/releases/download/v2.0.1/Mono-Serpent-v2.0.1.zip), ekstrak, lalu buka `index.html`.
 - **Pasang di Android:** buka versi web di browser yang mendukung PWA, lalu gunakan tombol **Install App** jika tersedia atau menu browser **Install app / Add to Home screen**.
 
 File ZIP juga dapat dimainkan tanpa server. Jika browser membatasi file lokal, ekstrak arsip dan jalankan server statis dari folder tersebut:
