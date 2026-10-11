@@ -1,13 +1,13 @@
 "use strict";
 
-const CACHE_NAME = "mono-serpent-v2.0.1";
+const CACHE_NAME = "mono-serpent-v2.0.2";
 const SHELL_FILES = [
   "./",
   "./index.html",
-  "./styles.css",
-  "./game.js",
-  "./locales.js",
-  "./manifest.webmanifest",
+  "./styles.css?v=2.0.2",
+  "./game.js?v=2.0.2",
+  "./locales.js?v=2.0.2",
+  "./manifest.webmanifest?v=2.0.2",
   "./icons/mono-serpent.svg",
   "./icons/mono-serpent-192.png",
   "./icons/mono-serpent-512.png"
@@ -48,10 +48,14 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  event.respondWith(caches.match(request).then((cached) => cached || fetch(request).then((response) => {
-    if (!response.ok) return response;
-    return caches.open(CACHE_NAME)
-      .then((cache) => cache.put(request, response.clone()))
-      .then(() => response);
-  })));
+  event.respondWith(fetch(request)
+    .then((response) => {
+      if (!response.ok) {
+        return caches.match(request).then((cached) => cached || response);
+      }
+      return caches.open(CACHE_NAME)
+        .then((cache) => cache.put(request, response.clone()))
+        .then(() => response);
+    })
+    .catch(() => caches.match(request)));
 });
