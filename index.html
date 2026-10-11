@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#18231d">
+    <meta name="description" content="Mono Serpent: a playable, mobile-friendly tribute to monochrome pocket Snake games of the 3310 era.">
+    <title>Mono Serpent | LCD Edition</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="game.js" defer></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="page-heading">
+        <p class="eyebrow">MONOCHROME MOBILE CLASSIC</p>
+        <h1>MONO <span>SERPENT</span></h1>
+        <p class="page-subtitle">A small tribute to the pocket-sized original.</p>
+      </header>
+
+      <section class="handset" aria-label="Mono Serpent game">
+        <div class="handset-speaker" aria-hidden="true"><span></span></div>
+        <div class="handset-brand" aria-hidden="true">MONO SERPENT <span>LCD EDITION</span></div>
+
+        <div class="display-bezel">
+          <div class="lcd-screen">
+            <div class="screen-heading">
+              <span class="screen-title">MONO SERPENT</span>
+              <span class="screen-mark" aria-hidden="true">■</span>
+            </div>
+
+            <div class="score-strip" aria-label="Game statistics">
+              <div class="stat">
+                <span class="stat-label">SCORE</span>
+                <output id="scoreValue" class="stat-value" aria-label="Score">00000</output>
+              </div>
+              <div class="stat">
+                <span class="stat-label">HI</span>
+                <output id="highScoreValue" class="stat-value" aria-label="High score">00000</output>
+              </div>
+              <div class="stat stat-level">
+                <span class="stat-label">LEVEL</span>
+                <output id="levelValue" class="stat-value" aria-label="Level">01</output>
+              </div>
+            </div>
+
+            <div class="board-frame">
+              <canvas
+                id="gameBoard"
+                width="630"
+                height="360"
+                aria-label="Snake game board. Use the arrow keys or WASD to move. Swipe or use the direction pad on touch screens."
+              ></canvas>
+              <div id="gameOverlay" class="game-overlay" aria-hidden="true">
+                <div class="overlay-copy">
+                  <p id="overlayTitle" class="overlay-title">SNAKE</p>
+                  <p id="overlayText" class="overlay-text">PRESS START</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="screen-status">
+              <span class="status-label">STATUS</span>
+              <span id="statusText" class="status-value">PRESS START</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="device-actions">
+          <button id="startButton" class="action-button action-primary" type="button">START GAME</button>
+          <button id="pauseButton" class="action-button" type="button" aria-label="Pause game">PAUSE</button>
+          <button id="soundButton" class="sound-button" type="button" aria-pressed="true" aria-label="Turn sound off">SOUND ON</button>
+        </div>
+
+        <div class="control-section">
+          <p class="control-label">DIRECTION PAD</p>
+          <div class="dpad" role="group" aria-label="Touch direction controls">
+            <span class="dpad-spacer" aria-hidden="true"></span>
+            <button class="direction-button" type="button" data-direction="up" aria-label="Move up">▲</button>
+            <span class="dpad-spacer" aria-hidden="true"></span>
+            <button class="direction-button" type="button" data-direction="left" aria-label="Move left">◀</button>
+            <button id="dpadPause" class="dpad-center" type="button" aria-label="Pause or resume game">Ⅱ</button>
+            <button class="direction-button" type="button" data-direction="right" aria-label="Move right">▶</button>
+            <span class="dpad-spacer" aria-hidden="true"></span>
+            <button class="direction-button" type="button" data-direction="down" aria-label="Move down">▼</button>
+            <span class="dpad-spacer" aria-hidden="true"></span>
+          </div>
+          <p class="control-help">ARROWS / WASD <span aria-hidden="true">·</span> SWIPE <span aria-hidden="true">·</span> SPACE TO PAUSE</p>
+        </div>
+      </section>
+
+      <p id="announcer" class="visually-hidden" aria-live="polite" aria-atomic="true"></p>
+      <footer class="page-footer">NO SIGNAL NEEDED <span aria-hidden="true">·</span> YOUR BEST SCORE STAYS ON THIS DEVICE</footer>
+    </main>
+  </body>
+</html>

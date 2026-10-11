@@ -1,0 +1,63 @@
+name: Publish Mono Serpent
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: mono-serpent-publish
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Create v1.0.0 release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Package static game
+        run: zip -q -j Mono-Serpent-v1.0.0.zip index.html styles.css game.js README.md
+
+      - name: Publish release if it does not exist
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          if gh release view v1.0.0 >/dev/null 2>&1; then
+            echo "Release v1.0.0 already exists; leaving it unchanged."
+          else
+            gh release create v1.0.0 \
+              --title "Mono Serpent v1.0.0" \
+              --target "$GITHUB_SHA" \
+              --notes-file RELEASE_NOTES.md \
+              Mono-Serpent-v1.0.0.zip
+          fi
+
+  pages:
+    name: Deploy GitHub Pages
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload static site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy site
+        id: deployment
+        uses: actions/deploy-pages@v4
