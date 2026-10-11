@@ -5,6 +5,11 @@
   --case-highlight: #405047;
   --lcd: #b7c99d;
   --lcd-shadow: #92a77d;
+  --lcd-border: #637c5c;
+  --lcd-deep: #142a1f;
+  --lcd-overlay: #b7c99def;
+  --lcd-overlay-wash: #b7c99d66;
+  --lcd-obstacle: #506949;
   --ink: #20372c;
   --ink-soft: #3d5342;
   --page: #141c17;
@@ -14,6 +19,42 @@
   font-family: "Lucida Console", "Courier New", monospace;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+}
+
+html[data-lcd="moss"] {
+  --lcd: #b2c58e;
+  --lcd-shadow: #8ca276;
+  --lcd-border: #60774f;
+  --lcd-deep: #1b3020;
+  --lcd-overlay: #b2c58eef;
+  --lcd-overlay-wash: #b2c58e66;
+  --lcd-obstacle: #4e6940;
+  --ink: #20351f;
+  --ink-soft: #40583b;
+}
+
+html[data-lcd="gray"] {
+  --lcd: #c1c9b7;
+  --lcd-shadow: #9ca594;
+  --lcd-border: #717c6c;
+  --lcd-deep: #222d25;
+  --lcd-overlay: #c1c9b7ef;
+  --lcd-overlay-wash: #c1c9b766;
+  --lcd-obstacle: #667362;
+  --ink: #263228;
+  --ink-soft: #4b584c;
+}
+
+html[data-lcd="amber"] {
+  --lcd: #d0c99d;
+  --lcd-shadow: #a99f6e;
+  --lcd-border: #817448;
+  --lcd-deep: #352f1c;
+  --lcd-overlay: #d0c99def;
+  --lcd-overlay-wash: #d0c99d66;
+  --lcd-obstacle: #796b3c;
+  --ink: #3c3520;
+  --ink-soft: #5d5430;
 }
 
 * { box-sizing: border-box; }
@@ -38,10 +79,19 @@ body {
 
 button { font: inherit; }
 
+[hidden] { display: none !important; }
+
 button:focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 3px;
   z-index: 2;
+}
+
+select:focus-visible,
+input:focus-visible,
+summary:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
 }
 
 .page-shell {
@@ -147,14 +197,13 @@ h1 span { color: #b9c89e; }
   border: 1px solid #7d9271;
   background-color: var(--lcd);
   background-image: repeating-linear-gradient(0deg, transparent 0 3px, #20372c08 3px 4px);
-  box-shadow: inset 0 2px 8px #51684b66, 0 0 0 1px #c4d5aa;
+  box-shadow: inset 0 2px 8px color-mix(in srgb, var(--lcd-shadow) 65%, transparent), 0 0 0 1px color-mix(in srgb, var(--lcd) 65%, white);
 }
 
 .screen-heading,
 .screen-status,
 .score-strip,
-.stat,
-.screen-status {
+.stat {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -177,8 +226,8 @@ h1 span { color: #b9c89e; }
   min-height: 39px;
   margin-bottom: 7px;
   padding: 5px 7px;
-  border-top: 1px solid #607958;
-  border-bottom: 1px solid #607958;
+  border-top: 1px solid var(--lcd-border);
+  border-bottom: 1px solid var(--lcd-border);
   gap: 8px;
 }
 
@@ -198,7 +247,7 @@ h1 span { color: #b9c89e; }
 }
 
 .stat-value {
-  color: #142a1f;
+  color: var(--lcd-deep);
   font-size: clamp(12px, 3.5vw, 15px);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
@@ -211,7 +260,7 @@ h1 span { color: #b9c89e; }
   position: relative;
   width: 100%;
   overflow: hidden;
-  border: 1px solid #637c5c;
+  border: 1px solid var(--lcd-border);
   background: var(--lcd);
   box-shadow: inset 0 2px 7px #415c4666, 0 1px 0 #d0ddb8;
   touch-action: none;
@@ -234,7 +283,7 @@ h1 span { color: #b9c89e; }
   display: grid;
   place-items: center;
   padding: 12px;
-  background: #b7c99d66;
+  background: var(--lcd-overlay-wash);
   text-align: center;
 }
 
@@ -243,14 +292,14 @@ h1 span { color: #b9c89e; }
 .overlay-copy {
   width: min(100%, 250px);
   padding: 12px 10px;
-  border: 1px solid #405b45;
-  background: #b7c99deF;
+  border: 1px solid var(--lcd-border);
+  background: var(--lcd-overlay);
   box-shadow: 3px 3px 0 #304a3a55;
 }
 
 .overlay-title {
   margin: 0;
-  color: #192e22;
+  color: var(--lcd-deep);
   font-size: clamp(17px, 5vw, 23px);
   font-weight: 700;
   letter-spacing: .08em;
@@ -262,7 +311,7 @@ h1 span { color: #b9c89e; }
 
 .overlay-text {
   margin: 6px 0 0;
-  color: #304c38;
+  color: var(--ink-soft);
   font-size: clamp(9px, 2.8vw, 11px);
   font-weight: 700;
   letter-spacing: .05em;
@@ -278,7 +327,7 @@ h1 span { color: #b9c89e; }
 }
 
 .status-value {
-  color: #1f3828;
+  color: var(--lcd-deep);
   font-weight: 700;
   text-align: right;
 }
@@ -352,6 +401,152 @@ h1 span { color: #b9c89e; }
   font-weight: 700;
 }
 
+.mode-picker {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+  padding: 3px 5px;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--lcd-border);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .07em;
+}
+
+.mode-picker select,
+.setting-field select {
+  min-width: 0;
+  min-height: 34px;
+  padding: 5px 7px;
+  color: var(--lcd-deep);
+  border: 1px solid var(--lcd-border);
+  border-radius: 2px;
+  background: var(--lcd);
+  font: inherit;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.map-picker { border-top: 0; }
+
+.record-panel {
+  margin-top: 3px;
+  border-top: 1px dotted var(--lcd-border);
+  color: var(--ink-soft);
+  font-size: 8px;
+}
+
+.record-panel summary,
+.prefs-panel summary {
+  min-height: 34px;
+  padding: 10px 2px 7px;
+  color: inherit;
+  cursor: pointer;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.record-panel summary::marker,
+.prefs-panel summary::marker { color: var(--ink); }
+
+.record-list {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0 0 8px 18px;
+  color: var(--lcd-deep);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+}
+
+.prefs-panel {
+  margin: 0 0 14px;
+  padding: 0 9px 8px;
+  color: #bdc8ba;
+  border: 1px solid #18221b;
+  border-radius: 4px;
+  background: #202c23;
+  box-shadow: inset 0 1px 0 #566254;
+  font-size: 9px;
+}
+
+.prefs-panel summary {
+  min-height: 40px;
+  padding-top: 13px;
+  text-align: center;
+}
+
+.prefs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px 10px;
+  padding: 5px 0 7px;
+}
+
+.setting-field {
+  display: grid;
+  min-width: 0;
+  gap: 5px;
+  color: #cbd5c7;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .06em;
+}
+
+.setting-field select {
+  width: 100%;
+  min-height: 39px;
+  font-size: 10px;
+}
+
+.setting-toggle {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 8px;
+  color: #cbd5c7;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  cursor: pointer;
+}
+
+.setting-toggle input {
+  width: 20px;
+  height: 20px;
+  accent-color: #b7c99d;
+}
+
+.install-button {
+  min-height: 44px;
+  padding: 0 8px;
+  color: #17251a;
+  border: 1px solid #0f1711;
+  border-radius: 4px;
+  background: #b7c99d;
+  box-shadow: inset 0 1px 0 #eef3df, 0 2px 0 #101711;
+  font-size: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.install-button:active { transform: translateY(1px); }
+
+.settings-note {
+  margin: 2px 0 0;
+  color: #aab7a6;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  line-height: 1.4;
+  text-align: center;
+}
+
 .control-section { text-align: center; }
 
 .control-label {
@@ -371,6 +566,7 @@ h1 span { color: #b9c89e; }
   align-items: center;
   justify-items: center;
   gap: 5px;
+  direction: ltr;
 }
 
 .direction-button {
@@ -439,6 +635,8 @@ h1 span { color: #b9c89e; }
   .device-actions { grid-template-columns: minmax(0, 1fr) 74px auto; gap: 6px; }
   .sound-button { min-width: 76px; padding: 0 5px; font-size: 8px; }
   .action-button { padding-right: 5px; padding-left: 5px; font-size: 9px; }
+  .prefs-panel { padding-right: 7px; padding-left: 7px; }
+  .prefs-grid { gap: 8px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

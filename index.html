@@ -1,25 +1,29 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-lcd="sage">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#18231d">
-    <meta name="description" content="Mono Serpent: a playable, mobile-friendly tribute to monochrome pocket Snake games of the 3310 era.">
+    <meta name="description" content="Mono Serpent: a pocket-sized Snake game with a monochrome LCD look.">
+    <link rel="icon" href="icons/mono-serpent.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="icons/mono-serpent-192.png">
+    <link rel="manifest" href="manifest.webmanifest">
     <title>Mono Serpent | LCD Edition</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="locales.js" defer></script>
     <script src="game.js" defer></script>
   </head>
   <body>
     <main class="page-shell">
       <header class="page-heading">
-        <p class="eyebrow">MONOCHROME MOBILE CLASSIC</p>
+        <p class="eyebrow" data-i18n="pageEyebrow">MONOCHROME MOBILE CLASSIC</p>
         <h1>MONO <span>SERPENT</span></h1>
-        <p class="page-subtitle">A small tribute to the pocket-sized original.</p>
+        <p class="page-subtitle" data-i18n="pageSubtitle">A small tribute to the pocket-sized original.</p>
       </header>
 
       <section class="handset" aria-label="Mono Serpent game">
         <div class="handset-speaker" aria-hidden="true"><span></span></div>
-        <div class="handset-brand" aria-hidden="true">MONO SERPENT <span>LCD EDITION</span></div>
+        <div class="handset-brand" aria-hidden="true">MONO SERPENT <span data-i18n="lcdEdition">LCD EDITION</span></div>
 
         <div class="display-bezel">
           <div class="lcd-screen">
@@ -30,17 +34,34 @@
 
             <div class="score-strip" aria-label="Game statistics">
               <div class="stat">
-                <span class="stat-label">SCORE</span>
+                <span class="stat-label" data-i18n="score">SCORE</span>
                 <output id="scoreValue" class="stat-value" aria-label="Score">00000</output>
               </div>
               <div class="stat">
-                <span class="stat-label">HI</span>
-                <output id="highScoreValue" class="stat-value" aria-label="High score">00000</output>
+                <span class="stat-label" data-i18n="best">BEST</span>
+                <output id="highScoreValue" class="stat-value" aria-label="Best score">00000</output>
               </div>
               <div class="stat stat-level">
-                <span class="stat-label">LEVEL</span>
+                <span class="stat-label" data-i18n="level">LEVEL</span>
                 <output id="levelValue" class="stat-value" aria-label="Level">01</output>
               </div>
+            </div>
+
+            <div class="mode-picker">
+              <label for="modeSelect" data-i18n="gameMode">MODE</label>
+              <select id="modeSelect" aria-label="Game mode">
+                <option value="endless" data-i18n="modeEndless">ENDLESS</option>
+                <option value="obstacle" data-i18n="modeObstacles">OBSTACLE</option>
+              </select>
+            </div>
+            <div id="mapPicker" class="mode-picker map-picker" hidden>
+              <label for="mapSelect" data-i18n="map">ARENA</label>
+              <select id="mapSelect" aria-label="Obstacle arena">
+                <option value="random" data-i18n="mapRandom">RANDOM</option>
+                <option value="gates" data-i18n="mapGates">TWIN GATES</option>
+                <option value="slalom" data-i18n="mapSlalom">SLALOM</option>
+                <option value="cross" data-i18n="mapCross">CROSSING</option>
+              </select>
             </div>
 
             <div class="board-frame">
@@ -50,46 +71,78 @@
                 height="360"
                 aria-label="Snake game board. Use the arrow keys or WASD to move. Swipe or use the direction pad on touch screens."
               ></canvas>
-              <div id="gameOverlay" class="game-overlay" aria-hidden="true">
+              <div id="gameOverlay" class="game-overlay" aria-hidden="false">
                 <div class="overlay-copy">
-                  <p id="overlayTitle" class="overlay-title">SNAKE</p>
+                  <p id="overlayTitle" class="overlay-title">MONO SERPENT</p>
                   <p id="overlayText" class="overlay-text">PRESS START</p>
                 </div>
               </div>
             </div>
 
             <div class="screen-status">
-              <span class="status-label">STATUS</span>
+              <span class="status-label" data-i18n="statusLabel">STATUS</span>
               <span id="statusText" class="status-value">PRESS START</span>
             </div>
+
+            <details class="record-panel">
+              <summary data-i18n="bestRuns">BEST RUNS</summary>
+              <ol id="bestRunsList" class="record-list" aria-label="Best runs"></ol>
+            </details>
           </div>
         </div>
 
         <div class="device-actions">
-          <button id="startButton" class="action-button action-primary" type="button">START GAME</button>
-          <button id="pauseButton" class="action-button" type="button" aria-label="Pause game">PAUSE</button>
+          <button id="startButton" class="action-button action-primary" type="button" data-i18n="startGame">START GAME</button>
+          <button id="pauseButton" class="action-button" type="button" aria-label="Pause game" data-i18n="pause">PAUSE</button>
           <button id="soundButton" class="sound-button" type="button" aria-pressed="true" aria-label="Turn sound off">SOUND ON</button>
         </div>
 
+        <details class="prefs-panel">
+          <summary data-i18n="displaySettings">SETTINGS</summary>
+          <div class="prefs-grid">
+            <label class="setting-field" for="languageSelect">
+              <span data-i18n="language">LANGUAGE</span>
+              <select id="languageSelect" aria-label="Language">
+                <option value="en">English</option>
+              </select>
+            </label>
+            <label class="setting-field" for="paletteSelect">
+              <span data-i18n="lcdPalette">LCD TINT</span>
+              <select id="paletteSelect" aria-label="LCD tint">
+                <option value="sage" data-i18n="lcdSage">SAGE</option>
+                <option value="moss" data-i18n="lcdMoss">MOSS</option>
+                <option value="gray" data-i18n="lcdGray">GRAY</option>
+                <option value="amber" data-i18n="lcdAmber">AMBER</option>
+              </select>
+            </label>
+            <label class="setting-toggle" for="vibrationToggle">
+              <input id="vibrationToggle" type="checkbox">
+              <span data-i18n="vibration">VIBRATION</span>
+            </label>
+            <button id="installButton" class="install-button" type="button" hidden data-i18n="install">INSTALL APP</button>
+          </div>
+          <p class="settings-note" data-i18n="settingsNote">Preferences stay on this device.</p>
+        </details>
+
         <div class="control-section">
-          <p class="control-label">DIRECTION PAD</p>
-          <div class="dpad" role="group" aria-label="Touch direction controls">
+          <p class="control-label" data-i18n="directionPad">DIRECTION PAD</p>
+          <div class="dpad" role="group" aria-label="Touch direction controls" data-i18n-aria-label="directionPad">
             <span class="dpad-spacer" aria-hidden="true"></span>
-            <button class="direction-button" type="button" data-direction="up" aria-label="Move up">▲</button>
+            <button class="direction-button" type="button" data-direction="up" aria-label="Move up" data-i18n-aria-label="moveUp">▲</button>
             <span class="dpad-spacer" aria-hidden="true"></span>
-            <button class="direction-button" type="button" data-direction="left" aria-label="Move left">◀</button>
+            <button class="direction-button" type="button" data-direction="left" aria-label="Move left" data-i18n-aria-label="moveLeft">◀</button>
             <button id="dpadPause" class="dpad-center" type="button" aria-label="Pause or resume game">Ⅱ</button>
-            <button class="direction-button" type="button" data-direction="right" aria-label="Move right">▶</button>
+            <button class="direction-button" type="button" data-direction="right" aria-label="Move right" data-i18n-aria-label="moveRight">▶</button>
             <span class="dpad-spacer" aria-hidden="true"></span>
-            <button class="direction-button" type="button" data-direction="down" aria-label="Move down">▼</button>
+            <button class="direction-button" type="button" data-direction="down" aria-label="Move down" data-i18n-aria-label="moveDown">▼</button>
             <span class="dpad-spacer" aria-hidden="true"></span>
           </div>
-          <p class="control-help">ARROWS / WASD <span aria-hidden="true">·</span> SWIPE <span aria-hidden="true">·</span> SPACE TO PAUSE</p>
+          <p class="control-help" data-i18n="controlHelp">ARROWS / WASD · SWIPE · SPACE TO PAUSE</p>
         </div>
       </section>
 
       <p id="announcer" class="visually-hidden" aria-live="polite" aria-atomic="true"></p>
-      <footer class="page-footer">NO SIGNAL NEEDED <span aria-hidden="true">·</span> YOUR BEST SCORE STAYS ON THIS DEVICE</footer>
+      <footer class="page-footer" data-i18n="footerText">NO SIGNAL NEEDED · YOUR BEST SCORE STAYS ON THIS DEVICE</footer>
     </main>
   </body>
 </html>

@@ -16,33 +16,40 @@ concurrency:
 
 jobs:
   release:
-    name: Create v1.0.0 release
+    name: Create versioned release
     runs-on: ubuntu-latest
     steps:
       - name: Check out source
         uses: actions/checkout@v4
 
+      - name: Read release version
+        run: echo "RELEASE_VERSION=$(cat VERSION)" >> "$GITHUB_ENV"
+
       - name: Package static game
-        run: zip -q -j Mono-Serpent-v1.0.0.zip index.html styles.css game.js README.md
+        run: zip -q -r "Mono-Serpent-${RELEASE_VERSION}.zip" index.html styles.css game.js locales.js service-worker.js manifest.webmanifest icons README.md RELEASE_NOTES.md VERSION
 
       - name: Publish release if it does not exist
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          if gh release view v1.0.0 >/dev/null 2>&1; then
-            echo "Release v1.0.0 already exists; leaving it unchanged."
+          if gh release view "$RELEASE_VERSION" >/dev/null 2>&1; then
+            echo "Release $RELEASE_VERSION already exists; leaving it unchanged."
           else
-            gh release create v1.0.0 \
-              --title "Mono Serpent v1.0.0" \
+            gh release create "$RELEASE_VERSION" \
+              --title "Mono Serpent $RELEASE_VERSION" \
               --target "$GITHUB_SHA" \
               --notes-file RELEASE_NOTES.md \
-              Mono-Serpent-v1.0.0.zip
+              "Mono-Serpent-${RELEASE_VERSION}.zip"
           fi
 
   pages:
     name: Deploy GitHub Pages
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

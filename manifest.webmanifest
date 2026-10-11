@@ -1,0 +1,33 @@
+{
+  "id": "./",
+  "name": "Mono Serpent — LCD Edition",
+  "short_name": "Mono Serpent",
+  "description": "A pocket-sized Snake game with a monochrome LCD look.",
+  "lang": "en",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#141c17",
+  "theme_color": "#18231d",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "./icons/mono-serpent-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/mono-serpent-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/mono-serpent.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

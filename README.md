@@ -2,63 +2,88 @@
 
 # MONO SERPENT
 
-**Game Snake ringan dengan nuansa LCD monokrom ponsel klasik.**
+**Snake saku bergaya LCD monokrom—sederhana, responsif, dan siap dimainkan offline.**
 
-[▶ Mainkan Mono Serpent](https://aldoprawiroa.github.io/Mono-Serpent/) · [Unduh v1.0.0](https://github.com/aldoprawiroa/Mono-Serpent/releases/download/v1.0.0/Mono-Serpent-v1.0.0.zip) · [Semua rilis](https://github.com/aldoprawiroa/Mono-Serpent/releases)
+[▶ Mainkan di browser](https://aldoprawiroa.github.io/Mono-Serpent/) · [Unduh Mono Serpent v2.0.0](https://github.com/aldoprawiroa/Mono-Serpent/releases/download/v2.0.0/Mono-Serpent-v2.0.0.zip) · [Lihat semua rilis](https://github.com/aldoprawiroa/Mono-Serpent/releases)
+
+<br>
+
+![Mono Serpent berjalan dengan tampilan LCD hijau monokrom](icons/mono-serpent.svg)
 
 </div>
 
-Mono Serpent adalah reinterpretasi Snake klasik untuk browser: ular bergerak per kotak, makanan menambah skor dan panjang, tepi layar saling terhubung, dan tabrakan dengan tubuh sendiri mengakhiri permainan. Bentuk layar, warna LCD, tombol arah, serta beep singkatnya mengambil inspirasi dari game ponsel monokrom era 3310.
+Mono Serpent adalah reinterpretasi Snake klasik yang mengambil rasa dari Snake dan Snake II pada ponsel Nokia era 3310. Ular bergerak kotak demi kotak, layar terhubung di keempat sisinya, dan tampilan LCD dibuat sederhana agar permainan tetap menjadi fokus.
 
-Tidak ada framework, akun, iklan, koneksi server, atau aset eksternal. Game bisa langsung dimainkan di halaman web, atau diunduh sebagai ZIP statis dan dimainkan secara offline.
+Versi 2 menambahkan arena rintangan, makanan bonus, rekor lokal, beberapa warna LCD, getaran, pilihan bahasa, serta dukungan instalasi/offline. Game dibuat dengan HTML, CSS, JavaScript vanilla, dan Canvas—tanpa framework, akun, iklan, backend, atau aset eksternal.
 
-## Cara bermain
+## Mainkan
 
-1. Buka [Mono Serpent](https://aldoprawiroa.github.io/Mono-Serpent/) atau unduh ZIP dari [rilis v1.0.0](https://github.com/aldoprawiroa/Mono-Serpent/releases/download/v1.0.0/Mono-Serpent-v1.0.0.zip).
-2. Tekan **START GAME**. Pada desktop, tekan **Enter** juga bisa digunakan untuk mulai atau mengulang.
-3. Arahkan ular untuk mengambil makanan. Setiap makanan menambah 10 poin dan satu ruas tubuh.
-4. Ular muncul kembali dari sisi seberang saat melewati tepi layar. Hindari menabrak tubuh sendiri.
+- **Langsung di web:** buka [Mono Serpent](https://aldoprawiroa.github.io/Mono-Serpent/).
+- **Unduh dan main offline:** ambil [Mono-Serpent-v2.0.0.zip](https://github.com/aldoprawiroa/Mono-Serpent/releases/download/v2.0.0/Mono-Serpent-v2.0.0.zip), ekstrak, lalu buka `index.html`.
+- **Pasang di Android:** buka versi web di browser yang mendukung PWA, lalu gunakan tombol **Install App** jika tersedia atau menu browser **Install app / Add to Home screen**.
 
-| Perangkat | Kontrol |
-| --- | --- |
-| Keyboard | **Arrow Keys** atau **W A S D** untuk bergerak |
-| Keyboard | **Space** atau **P** untuk pause/resume; **Enter** untuk mulai/ulang |
-| Layar sentuh | D-pad di bawah layar game; tombol tengah untuk pause/resume |
-| Layar sentuh | Swipe pada papan game sebagai kontrol tambahan |
-
-Game otomatis dijeda saat tab atau jendela kehilangan fokus. High score dan pilihan suara disimpan lokal di browser/perangkat ini, tanpa dikirim ke server. Suara memakai Web Audio dan baru aktif setelah interaksi pemain; tombol **SOUND ON/OFF** tersedia di layar.
-
-## Level dan progres
-
-- Skor bertambah **10 poin** per makanan.
-- Kecepatan naik satu level setiap lima makanan.
-- Ular membungkus sisi papan, seperti mode Snake II.
-- Memenuhi seluruh papan menghasilkan kemenangan.
-- High score bertahan setelah browser ditutup selama penyimpanan lokal tersedia.
-
-## Mainkan atau jalankan secara lokal
-
-Untuk bermain offline, unduh ZIP v1.0.0 di bagian atas, ekstrak, lalu buka `index.html` di browser modern. Jika browser membatasi file lokal, jalankan server statis dari folder hasil ekstrak:
+File ZIP juga dapat dimainkan tanpa server. Jika browser membatasi file lokal, ekstrak arsip dan jalankan server statis dari folder tersebut:
 
 ```bash
 python -m http.server 8000
 ```
 
-Kemudian buka <http://localhost:8000>. Proyek ini tidak memerlukan instalasi dependency atau proses build. Saat halaman GitHub Pages aktif, setiap perubahan pada branch `main` akan dicoba deploy otomatis oleh workflow Actions.
+Lalu buka <http://localhost:8000>. Tidak ada dependency atau proses build yang perlu dijalankan.
 
-## Berkas proyek
+## Kontrol
+
+| Perangkat | Kontrol |
+| --- | --- |
+| Keyboard | **Arrow Keys** atau **W A S D** untuk mengubah arah |
+| Keyboard | **Enter** untuk mulai/ulang; **Space** atau **P** untuk jeda/lanjut |
+| Layar sentuh | D-pad besar di bawah perangkat; tombol tengah menjeda atau melanjutkan |
+| Layar sentuh | Usap papan permainan untuk mengubah arah |
+
+Arah yang membalikkan gerakan 180° diabaikan. Permainan otomatis dijeda ketika tab atau jendela kehilangan fokus, sehingga ular tidak berjalan tanpa kontrol.
+
+## Cara bermain
+
+- Setiap makanan biasa memberi **10 poin** dan memanjangkan ular.
+- Setiap lima makanan, level naik dan ular bergerak sedikit lebih cepat.
+- Makanan bonus sesekali muncul dalam waktu terbatas; ambil untuk mendapat **30 poin**.
+- Keluar melewati tepi akan membawa ular ke sisi berlawanan, seperti Snake II.
+- Hindari tubuh sendiri dan rintangan. Penuhi seluruh papan pada mode Endless untuk menang.
+
+### Mode
+
+- **Endless:** papan terbuka tanpa dinding; fokus pada skor dan bertahan selama mungkin.
+- **Obstacle:** pilih arena acak, Twin Gates, Slalom, atau Crossing. Menyentuh rintangan mengakhiri permainan.
+
+Lima skor terbaik disimpan secara lokal untuk setiap mode. Rekor lama dari v1 ikut dibaca dan dimigrasikan. Skor, preferensi, serta pilihan bahasa tidak dikirim ke server.
+
+## Bahasa dan tampilan
+
+Antarmuka tersedia dalam 14 pilihan: English, Bahasa Indonesia, Deutsch, Русский, 日本語, 한국어, Français, Español, Português (Brasil), 简体中文, العربية, हिन्दी, Italiano, dan Türkçe. Bahasa العربية menggunakan arah teks kanan-ke-kiri.
+
+Pilih warna layar **Sage**, **Moss**, **Gray**, atau **Amber**. Suara sintetis bergaya keypad dan getaran perangkat dapat dinyalakan atau dimatikan di pengaturan. Preferensi tersimpan di perangkat ini.
+
+## Instalasi dan offline
+
+Mono Serpent adalah situs statis dan Progressive Web App. Setelah dibuka melalui HTTPS dan tersedia di browser yang mendukungnya, aplikasi dapat dipasang dari browser dan shell game disimpan untuk dimainkan offline. File ZIP juga bisa dimainkan langsung; service worker hanya tersedia saat dijalankan melalui HTTPS atau server lokal.
+
+## Struktur proyek
 
 ```text
 .
-├── index.html                 # Markup game dan kontrol
-├── styles.css                 # Tampilan LCD dan layout responsif
-├── game.js                    # Aturan game, input, canvas, audio, dan skor
-├── RELEASE_NOTES.md           # Catatan rilis v1.0.0
-└── .github/workflows/publish.yml  # Publikasi Pages dan aset rilis
+├── index.html                     # Struktur game, pengaturan, dan kontrol
+├── styles.css                     # Tampilan handset dan layout responsif
+├── game.js                        # State, input, gerakan, skor, render, audio
+├── locales.js                     # Katalog antarmuka 14 bahasa
+├── service-worker.js              # Cache shell untuk penggunaan offline
+├── manifest.webmanifest           # Metadata instalasi PWA
+├── icons/                          # Ikon SVG dan PNG aplikasi
+├── VERSION                         # Versi yang dikemas workflow rilis
+├── RELEASE_NOTES.md                # Catatan rilis terbaru
+└── .github/workflows/publish.yml   # Rilis ZIP dan deploy GitHub Pages
 ```
 
 ## Kompatibilitas
 
-Dirancang untuk browser modern di Android, iOS, dan desktop. Layout memprioritaskan layar portrait, kontrol sentuh memiliki target besar, dan papan tetap berbasis grid pada ukuran layar berbeda.
+Diuji untuk layout portrait mulai dari lebar 320 px hingga desktop. Game bekerja pada browser modern di Android, iOS, dan desktop. Papan memakai grid tetap sehingga ukurannya dapat berubah tanpa mengubah aturan gerak.
 
-Mono Serpent adalah tribute penggemar yang berdiri sendiri. Game ini tidak berafiliasi dengan atau didukung oleh Nokia dan tidak menggunakan aset Nokia.
+Mono Serpent adalah tribute penggemar yang berdiri sendiri. Game ini tidak berafiliasi dengan atau didukung oleh Nokia, serta tidak menggunakan aset Nokia.
